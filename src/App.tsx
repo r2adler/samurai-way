@@ -1,26 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import '../../samurai-way/src/App.css';
+import { Route } from 'react-router-dom'
+import Header from "./components/Header/Header";
+import Navbar from "./components/Navbar/Navbar";
+import Profile from "./components/Profile/Profile";
+import Dialogs from "./components/Dialogs/Dialogs";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+function App({ state, addPost }: any) {
+
+    return (
+        <div className={'app-wrapper'}>
+            <Header />
+            <Navbar />
+            <div className={'app-wrapper-content'}>
+                <Route path="/dialogs" component={() =>
+                    <Dialogs
+                        messages={state.dialogsPage.messages}
+                        dialogs={state.dialogsPage.dialogs}
+                    />}
+                />
+                <Route path="/profile" component={() => <Profile posts={state.profilePage.posts} addPost={addPost}/>} />
+                <Route path="/news" component={Profile} />
+                <Route path="/music" component={Profile} />
+                <Route path="/settings" component={Profile} />
+            </div>
+        </div>
+    );
 }
 
 export default App;
